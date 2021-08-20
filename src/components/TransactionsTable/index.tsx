@@ -1,9 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TransactionsContext } from "../../TransactionsContext";
 import { Container } from "./styles";
 
 export function TransactionsTable() {
   const { transactions } = useContext(TransactionsContext);
+  const lista = transactions.reverse();
+
+  useEffect(() => {
+    const lista = transactions.reverse();
+    console.log("lista:", lista);
+  }, [transactions]);
 
   return (
     <Container>
@@ -17,19 +23,19 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
-            <tr key={transaction.id}>
-              <td>{transaction.title}</td>
-              <td className={transaction.type}>
+          {lista.map((lista) => (
+            <tr key={lista.id}>
+              <td>{lista.title}</td>
+              <td className={lista.type}>
                 {new Intl.NumberFormat("pt-BR", {
                   style: "currency",
                   currency: "BRL",
-                }).format(transaction.amount)}
+                }).format(lista.amount)}
               </td>
-              <td>{transaction.category}</td>
+              <td>{lista.category}</td>
               <td>
                 {new Intl.DateTimeFormat("pt-BR").format(
-                  new Date(transaction.createdAt)
+                  new Date(lista.createdAt)
                 )}
               </td>
             </tr>
